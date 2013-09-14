@@ -1,0 +1,70 @@
+.countdown-blocks {
+    background-color: #fff;
+    padding: 10px 10px 5px 10px;
+}
+
+.countdown-blocks .title-box {
+    color: #333;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1.0em;
+    text-align: center;
+}
+
+.countdown-blocks .days-box,
+.countdown-blocks .hours-box,
+.countdown-blocks .minutes-box,
+.countdown-blocks .seconds-box {
+    font-size: 0;
+    margin: 0;
+    max-width: 100%;
+    min-height: 25px;
+    padding: 0;
+    position: relative;
+}
+
+.countdown-blocks .days-box span,
+.countdown-blocks .hours-box span,
+.countdown-blocks .minutes-box span,
+.countdown-blocks .seconds-box span {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 8pt;
+    font-weight: bold;
+    height: 25px;
+    left: 0px;
+    line-height: 25px;
+    padding-left: 5px;
+    position: absolute;
+    text-shadow: #333 3px 3px 8px;
+    top: 0px;
+    width: 80px;
+}
+
+.countdown-blocks .days-box .box {
+    background-color: #153450;
+}
+
+.countdown-blocks .hours-box .box {
+    background-color: #294052;
+}
+
+.countdown-blocks .minutes-box .box {
+    background-color: #447294;
+}
+
+.countdown-blocks .seconds-box .box {
+    background-color: #8FBCDB;
+}
+
+.countdown-blocks .box {
+    background-color: black;
+    display: inline-block;
+    height: 25px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    width: 25px;
+}
