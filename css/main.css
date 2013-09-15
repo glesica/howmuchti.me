@@ -60,24 +60,51 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-#visual {
-    max-width: 600px;
-    padding: 0;
+#container {
     margin: auto;
+    max-width: 700px;
+}
+
+#visual {
+    padding: 0;
     margin-top: 30px;
 }
 
+/*
+ * ---------
+ * Interface
+ * ---------
+ */
 
+#interface {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 400px;
+}
 
+#form label {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+}
 
+#form label:first-child {
+    margin-top: 0;
+}
 
+#form input {
+    padding: 10px;
+    width: 90%;
+}
 
-
-
-
-
-
-
+#form button {
+    display: block;
+    width: 150px;
+    padding: 10px 15px;
+    margin: auto;
+    margin-top: 20px;
+}
 
 /* ==========================================================================
    Media Queries
