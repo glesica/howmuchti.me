@@ -142,7 +142,7 @@
             p = {};
             p.ten = props.ten;
             p.zero = props.zero || new Date((new Date()).valueOf() + 5 * mspd);
-            p.title = props.title || '';
+            p.title = props.title || '???';
             switch(type) {
                 case 'blocks':
                     return new Blocks(selector, p);
