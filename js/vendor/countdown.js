@@ -7,101 +7,80 @@
     var Blocks = function(selector, props) {
         this.zero = props.zero;
         this.title = props.title;
+        this.blockHeight = props.blockHeight || '25px';
+        this.blockWidth = props.blockWidth || '25px';
         var container = d3.select(selector)
             .append('div')
                 .attr('class', 'countdown-blocks');
-        if (this.title) {
-            this.titleContainer = container
-                .append('div')
-                    .attr('class', 'title-box')
-                    .text(this.title);
-        }
-        this.daysContainer = container
+        this.blocksContainer = container
             .append('div')
-                .attr('class', 'days-box');
-        this.daysContainer
-            .append('span')
-                .text('Days');
-        this.hoursContainer = container
-            .append('div')
-                .attr('class', 'hours-box');
-        this.hoursContainer
-            .append('span')
-                .text('Hours');
-        this.minutesContainer = container
-            .append('div')
-                .attr('class', 'minutes-box');
-        this.minutesContainer
-            .append('span')
-                .text('Minutes');
-        this.secondsContainer = container
-            .append('div')
-                .attr('class', 'seconds-box');
-        this.secondsContainer
-            .append('span')
-                .text('Seconds');
+                .attr('class', 'blocks-box');
         this.update();
     }
 
     Blocks.prototype = {
         update: function() {
             var current = new Date();
-
-            var dif = (this.zero - current) / 1000;
+            this.timeLeft = this.zero - current
+            var dif = this.timeLeft / 1000;
             if (dif < 0) { dif = 0; }
-            var days = Math.floor(dif / spd);
-            var hours = Math.floor((dif % spd) / sph);
-            var minutes = Math.floor((dif % sph) / spm);
-            var seconds = Math.floor(dif % spm);
+            this.daysLeft = Math.floor(dif / spd);
+            this.hoursLeft = Math.floor((dif % spd) / sph);
+            this.minutesLeft = Math.floor((dif % sph) / spm);
+            this.secondsLeft = Math.floor(dif % spm);
             
-            var daysElement = this.daysContainer
-                .selectAll('div')
-                    .data(new Array(days));
+            var daysElement = this.blocksContainer
+                .selectAll('div.days-box')
+                    .data(new Array(this.daysLeft));
             daysElement.enter()
-                .insert('div', 'span')
-                .attr('class', 'box')
+                .insert('div')
+                .attr('class', 'box days-box')
+                .style('height', this.blockHeight)
                 .style('width', '0px')
                 .transition().duration(750)
-                .style('width', '25px');
+                .style('width', this.blockWidth);
             daysElement.exit()
                 .transition().duration(750)
                 .style('width', '0px')
                 .remove();
-            var hoursElement = this.hoursContainer
-                .selectAll('div')
-                    .data(new Array(hours));
+            var hoursElement = this.blocksContainer
+                .selectAll('div.hours-box')
+                    .data(new Array(this.hoursLeft));
             hoursElement.enter()
-                .insert('div', 'span')
-                .attr('class', 'box')
+                .insert('div')
+                .attr('class', 'box hours-box')
+                .style('height', this.blockHeight)
                 .style('width', '0px')
                 .transition().duration(750)
-                .style('width', '25px');
+                .style('width', this.blockWidth);
             hoursElement.exit()
                 .transition().duration(750)
                 .style('width', '0px')
                 .remove();
-            var minutesElement = this.minutesContainer
-                .selectAll('div')
-                    .data(new Array(minutes));
+            var minutesElement = this.blocksContainer
+                .selectAll('div.minutes-box')
+                    .data(new Array(this.minutesLeft));
             minutesElement.enter()
-                .insert('div', 'span')
-                .attr('class', 'box')
+                .insert('div')
+                .attr('class', 'box minutes-box')
+                .style('height', this.blockHeight)
                 .style('width', '0px')
                 .transition().duration(750)
-                .style('width', '25px');
+                .style('width', this.blockWidth);
             minutesElement.exit()
                 .transition().duration(750)
                 .style('width', '0px')
                 .remove();
-            var secondsElement = this.secondsContainer
-                .selectAll('div')
-                    .data(new Array(seconds));
+            var secondsElement = this.blocksContainer
+                .selectAll('div.seconds-box')
+                    .data(new Array(this.secondsLeft));
             secondsElement.enter()
-                .insert('div', 'span')
-                .attr('class', 'box')
+                .insert('div')
+                .attr('class', 'box seconds-box')
+                .style('height', this.blockHeight)
                 .style('width', '0px')
                 .transition().duration(750)
-                .style('width', '25px');
+                .style('width', this.blockWidth);
             secondsElement.exit()
                 .transition().duration(750)
                 .style('width', '0px')
@@ -109,10 +88,15 @@
             return this;
         },
 
-        run: function() {
+        run: function(callback) {
+            // The optional callback function will be called and passed the
+            // countdown object each time the state is updated.
             var self = this;
             this.intervalID = setInterval(function() {
                 self.update();
+                if (callback !== undefined) {
+                    callback(self);
+                }
             }, 1000);
             return this;
         },
@@ -139,16 +123,15 @@
     countdown = {
         create: function(type, selector, props) {
             if (selector === undefined) throw 'Missing parameter: selector';
-            p = {};
-            p.ten = props.ten;
-            p.zero = props.zero || new Date((new Date()).valueOf() + 5 * mspd);
-            p.title = props.title || '???';
+            props.ten = props.ten;
+            props.zero = props.zero || new Date((new Date()).valueOf() + 5 * mspd);
+            props.title = props.title || '???';
             switch(type) {
                 case 'blocks':
-                    return new Blocks(selector, p);
+                    return new Blocks(selector, props);
                     break;
                 case 'circles': 
-                    return new Circle(selector, p);
+                    return new Circle(selector, props);
                     break;
             }
         },
