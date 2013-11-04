@@ -69,11 +69,15 @@ h2#sub-title {
     margin: 0;
 }
 
-#timer {
+#timer, #zero {
     font-size: 1.5em;
     font-weight: bold;
     font-family: monospace;
     text-align: center;
+}
+
+#zero {
+    font-size: 1.0em;
 }
 
 #container {

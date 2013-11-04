@@ -2,6 +2,7 @@ YUI().use('anim', 'button', 'calendar', function(Y) {
     var update = function(self) {
         Y.one('#timer').setHTML(self.daysLeft + ' days and ' + self.hoursLeft + ':' +
             self.minutesLeft + ':' + self.secondsLeft);
+        Y.one('#zero').setHTML(self.zero.toString());
     };
 
     var params = JSON.parse(atob(location.hash.slice(1)) || '{}');
